@@ -17,6 +17,8 @@ div.navigation-container {
     min-width: 70px;
     border-right: 1px solid #bbbbbb;
     font-size: 32px;
+    position: fixed;
+    min-height: 750px;
 }
 
 div.logo {
@@ -56,6 +58,7 @@ div.main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-left: 100px;
 }
 
 div.tweet-sidebar-container {
@@ -107,6 +110,7 @@ div.tweet-sidebar-container > div.tweet-sidebar {
     border: 1px solid #979797;
     border-radius: 20px;
     overflow: hidden;
+    position: fixed;
 }
 
 div.tweets-trending {
@@ -144,6 +148,10 @@ div.tweets-trending ul li {
     font-size: 24px;
     color: #fcfcfc;
     cursor: pointer;
+}
+
+div.load-more {
+    display: none;
 }
 
 #my-modal {

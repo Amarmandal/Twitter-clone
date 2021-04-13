@@ -7,6 +7,7 @@ const loadMoreBtn = document.querySelector(".load-more");
 const myModal = document.getElementById('my-modal');
 const modalImg = document.getElementById('img01');
 const mCloseBtn = document.getElementsByClassName("close")[0];
+const trendListItem = document.querySelectorAll('ul>li');
 let tweetObject = [];
 let nextToken = {};
 
@@ -18,6 +19,8 @@ const getTwitterData = (nextPage = false) => {
   let fullURL = `${URL}/tweets?query=${encodeURIComponent(
     searchInput.value
   )}&max_results=10`;
+
+  loadMoreBtn.style.display = 'block';
 
   if (nextPage) {
     fullURL = `${URL}/nextpage?query=${encodeURIComponent(
@@ -156,15 +159,15 @@ const extractTweet = (data, includes) => {
     media.map((item) => {
       for (let i = 0; i < media_keys.length; i++) {
         if (item.media_key == media_keys[i]) {
-      results.push(item);
+          results.push(item);
         }
       }
     });
+
   }
+const { text, created_at, source, author_id } = data;
 
-  const { text, created_at, source, author_id } = data;
-
-  return tweetObject.push({
+return tweetObject.push({
     tweetText: text,
     tweetMedia: results,
     createdAt: created_at,
@@ -293,8 +296,20 @@ const generateTweetFooter = (tweetDate, tweetDevice) => {
 `;
 }
 
+const selectTrend = (ele) => {
+  const trendValue = ele.innerText;
+  searchInput.value = trendValue;
+  Array.from(tweetList.querySelectorAll("div")).map((item) => item.remove());
+  getTwitterData();
+}
+
 searchIcon.addEventListener("click", getTwitterData);
 loadMoreBtn.addEventListener("click", loadMore);
+Array.from(trendListItem).map(item => {
+  item.addEventListener('click', () => {
+    selectTrend(item);
+  })
+})
 
 const onEnter = (e) => {
   if (e.key === "Enter") {
@@ -312,3 +327,5 @@ const onImgClick = (ele) => {
 const onCloseModal = () => {
   myModal.style.display = 'none';
 }
+
+
